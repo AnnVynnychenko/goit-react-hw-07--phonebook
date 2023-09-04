@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import './Filter.css';
 // import { contactsFiltered, getFilterValue } from 'redux/contactSlice';
 
