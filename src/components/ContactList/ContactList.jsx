@@ -6,7 +6,7 @@ import { getContacts } from 'redux/selectors';
 
 const ContactList = () => {
   const dispatch = useDispatch();
-  const { items, isLoading, error } = useSelector(getContacts());
+  const { items, isLoading, error } = useSelector(getContacts);
   console.log('error', error);
   console.log('items', items);
   console.log('isLoading', isLoading);
