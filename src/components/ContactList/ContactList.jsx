@@ -2,26 +2,24 @@ import './ContactList.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { deleteContact, fetchContacts } from 'services/fetchApi';
-import { getContacts } from 'redux/selectors';
+import {
+  getContacts,
+  getError,
+  getIsLoading,
+  selectVisibleContacts,
+} from 'redux/selectors';
 
 const ContactList = () => {
   const dispatch = useDispatch();
-  const { items, isLoading, error } = useSelector(getContacts);
-  console.log('error', error);
-  console.log('items', items);
-  console.log('isLoading', isLoading);
-
-  // const filter = useSelector(getFilterValue);
+  const items = useSelector(getContacts);
+  const isLoading = useSelector(getIsLoading);
+  const error = useSelector(getError);
+  const visibleContacts = useSelector(selectVisibleContacts);
 
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  // const normalizedFilter = filter.toLowerCase();
-  // const visibleContacts = items.filter(
-  //   contact =>
-  //     contact.name && contact.name.toLowerCase().includes(normalizedFilter)
-  // );
   const onDeleteContact = id => {
     dispatch(deleteContact(id));
   };
@@ -30,7 +28,7 @@ const ContactList = () => {
       {isLoading && <p>Loading...</p>}
       {items && (
         <ul className="contactList">
-          {items.map(({ id, name, number }) => {
+          {visibleContacts.map(({ id, name, number }) => {
             return (
               <li key={id} className="contactItem">
                 {name}:<span className="telNumber">{number}</span>
